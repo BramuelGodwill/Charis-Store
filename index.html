@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charis e-mart | Beauty Products in Juja, Kenya</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'african-pink': '#e83a8e',
+                        'african-pink-dark': '#c72d7a',
+                        'african-pink-light': '#ff5da2',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fff5f9;
+        }
+        
+        .african-pattern-bg {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0iI2U4M2E4ZSIgb3BhY2l0eT0iMC4xIi8+PHJlY3QgeD0iMjAiIHk9IjIwIiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiNlODNhOGUiIG9wYWNpdHk9IjAuMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==');
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(232, 58, 142, 0.2);
+        }
+        
+        .category-btn.active {
+            background-color: #e83a8e;
+            color: white;
+        }
+        
+        .modal {
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-african-pink flex items-center justify-center text-white font-bold text-xl mr-3">
+                    C
+                </div>
+                <h1 class="text-2xl font-bold text-african-pink">Charis e-mart</h1>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#home" class="text-gray-700 hover:text-african-pink font-medium">Home</a>
+                <a href="#products" class="text-gray-700 hover:text-african-pink font-medium">Products</a>
+                <a href="#about" class="text-gray-700 hover:text-african-pink font-medium">About</a>
+                <a href="#contact" class="text-gray-700 hover:text-african-pink font-medium">Contact</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleCart()" class="relative text-gray-700 hover:text-african-pink">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-african-pink text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                </button>
+                <button onclick="toggleMobileMenu()" class="md:hidden text-gray-700">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 px-4 shadow-lg">
+            <a href="#home" class="block py-2 text-gray-700 hover:text-african-pink">Home</a>
+            <a href="#products" class="block py-2 text-gray-700 hover:text-african-pink">Products</a>
+            <a href="#about" class="block py-2 text-gray-700 hover:text-african-pink">About</a>
+            <a href="#contact" class="block py-2 text-gray-700 hover:text-african-pink">Contact</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative overflow-hidden">
+        <div class="african-pattern-bg absolute inset-0 opacity-10"></div>
+        <div class="container mx-auto px-4 py-16 md:py-24 relative">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Premium Beauty Products in <span class="text-african-pink">Juja, Kenya</span></h2>
+                    <p class="text-lg text-gray-600 mb-6">Discover our carefully curated collection of beauty products that enhance your natural beauty. Quality products at affordable prices.</p>
+                    <div class="flex space-x-4">
+                        <a href="#products" class="bg-african-pink hover:bg-african-pink-dark text-white px-6 py-3 rounded-full font-medium transition duration-300">Shop Now</a>
+                        <a href="#contact" class="border-2 border-african-pink text-african-pink hover:bg-african-pink hover:text-white px-6 py-3 rounded-full font-medium transition duration-300">Contact Us</a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Beauty Products" class="rounded-lg shadow-xl w-full max-w-md">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Our Beauty Products</h2>
+                <div class="w-20 h-1 bg-african-pink mx-auto"></div>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Browse through our wide range of beauty products carefully selected for our Kenyan customers.</p>
+            </div>
+            
+            <!-- Search and Add Product -->
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+                <div class="relative w-full md:w-1/2">
+                    <input type="text" id="search-input" placeholder="Search products..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-african-pink">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                </div>
+                <button onclick="openAddProductModal()" class="bg-african-pink hover:bg-african-pink-dark text-white px-6 py-2 rounded-full font-medium transition duration-300 w-full md:w-auto">
+                    <i class="fas fa-plus mr-2"></i> Add Product
+                </button>
+            </div>
+            
+            <!-- Categories -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8">
+                <button onclick="filterProducts('all')" class="category-btn active px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-african-pink hover:text-white transition">All</button>
+                <button onclick="filterProducts('ointment')" class="category-btn px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-african-pink hover:text-white transition">Ointments</button>
+                <button onclick="filterProducts('facial')" class="category-btn px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-african-pink hover:text-white transition">Facials</button>
+                <button onclick="filterProducts('lotion')" class="category-btn px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-african-pink hover:text-white transition">Lotions</button>
+                <button onclick="filterProducts('hair')" class="category-btn px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-african-pink hover:text-white transition">Hair Products</button>
+                <button onclick="filterProducts('perfume')" class="category-btn px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-african-pink hover:text-white transition">Perfumes</button>
+                <button onclick="filterProducts('makeup')" class="category-btn px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-african-pink hover:text-white transition">Makeup</button>
+                <button onclick="filterProducts('skincare')" class="category-btn px-4 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-african-pink hover:text-white transition">Skincare</button>
+            </div>
+            
+            <!-- Products Grid -->
+            <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Products will be loaded here dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">About Charis e-mart</h2>
+                    <p class="text-gray-600 mb-4">Welcome to Charis e-mart, your premier destination for quality beauty products in Juja, Kenya. We are committed to providing our customers with authentic, affordable, and effective beauty solutions.</p>
+                    <p class="text-gray-600 mb-4">Our products are carefully selected to meet the diverse beauty needs of our Kenyan customers, with a focus on quality and customer satisfaction.</p>
+                    <p class="text-gray-600">Located in the heart of Juja, we serve both local customers and those across Kenya through our reliable delivery services.</p>
+                </div>
+                <div class="md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="About Charis e-mart" class="rounded-lg shadow-lg w-full">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Contact Us</h2>
+                <div class="w-20 h-1 bg-african-pink mx-auto"></div>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Get in touch with us for inquiries, orders, or any questions about our products.</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/2">
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Contact Information</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <i class="fas fa-store text-african-pink mt-1 mr-4"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Business Name</h4>
+                                    <p class="text-gray-600">Charis e-mart</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-envelope text-african-pink mt-1 mr-4"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Email</h4>
+                                    <p class="text-gray-600">Osbornemike2021@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-phone-alt text-african-pink mt-1 mr-4"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Phone</h4>
+                                    <p class="text-gray-600">+254 791 859 172</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-map-marker-alt text-african-pink mt-1 mr-4"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Address</h4>
+                                    <p class="text-gray-600">P.O Box Nairobi, Juja, Kenya</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Send Us a Message</h3>
+                        <form id="contact-form" class="space-y-4">
+                            <div>
+                                <label for="name" class="block text-gray-700 mb-1">Name</label>
+                                <input type="text" id="name" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-african-pink">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-gray-700 mb-1">Email</label>
+                                <input type="email" id="email" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-african-pink">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-gray-700 mb-1">Message</label>
+                                <textarea id="message" rows="4" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-african-pink"></textarea>
+                            </div>
+                            <button type="submit" class="bg-african-pink hover:bg-african-pink-dark text-white px-6 py-2 rounded font-medium transition duration-300">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 rounded-full bg-african-pink flex items-center justify-center text-white font-bold text-lg mr-3">
+                            C
+                        </div>
+                        <h3 class="text-xl font-bold">Charis e-mart</h3>
+                    </div>
+                    <p class="text-gray-400 max-w-xs">Your trusted beauty products provider in Juja, Kenya.</p>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#home" class="text-gray-400 hover:text-white transition">Home</a></li>
+                            <li><a href="#products" class="text-gray-400 hover:text-white transition">Products</a></li>
+                            <li><a href="#about" class="text-gray-400 hover:text-white transition">About</a></li>
+                            <li><a href="#contact" class="text-gray-400 hover:text-white transition">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Categories</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#products" onclick="filterProducts('ointment')" class="text-gray-400 hover:text-white transition">Ointments</a></li>
+                            <li><a href="#products" onclick="filterProducts('facial')" class="text-gray-400 hover:text-white transition">Facials</a></li>
+                            <li><a href="#products" onclick="filterProducts('lotion')" class="text-gray-400 hover:text-white transition">Lotions</a></li>
+                            <li><a href="#products" onclick="filterProducts('hair')" class="text-gray-400 hover:text-white transition">Hair Products</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Connect</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+                <p>© 2023 Charis e-mart. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-lg transform translate-x-full transition-transform duration-300 z-50 overflow-y-auto">
+        <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+            <h3 class="text-lg font-semibold">Your Cart</h3>
+            <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="cart-items" class="p-4 space-y-4">
+            <!-- Cart items will be loaded here dynamically -->
+            <p class="text-gray-500 text-center py-8">Your cart is empty</p>
+        </div>
+        <div class="p-4 border-t border-gray-200">
+            <div class="flex justify-between mb-4">
+                <span class="font-semibold">Total:</span>
+                <span id="cart-total" class="font-semibold">KSh 0</span>
+            </div>
+            <button onclick="initiateMpesaPayment()" class="w-full bg-african-pink hover:bg-african-pink-dark text-white py-2 rounded font-medium transition duration-300">Pay with M-Pesa</button>
+        </div>
+    </div>
+    <div id="cart-overlay" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40" onclick="toggleCart()"></div>
+
+    <!-- Add Product Modal -->
+    <div id="add-product-modal" class="modal fixed inset-0 flex items-center justify-center z-50 opacity-0 pointer-events-none">
+        <div class="modal-overlay absolute inset-0 bg-black bg-opacity-50" onclick="closeAddProductModal()"></div>
+        <div class="modal-container bg-white w-full max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto transform transition-all">
+            <div class="modal-content py-4 px-6">
+                <div class="flex justify-between items-center pb-3">
+                    <h3 class="text-xl font-bold">Add New Product</h3>
+                    <button onclick="closeAddProductModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <form id="add-product-form" class="space-y-4">
+                    <div>
+                        <label for="product-name" class="block text-gray-700 mb-1">Product Name</label>
+                        <input type="text" id="product-name" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-african-pink">
+                    </div>
+                    
+                    <div>
+                        <label for="product-category" class="block text-gray-700 mb-1">Category</label>
+                        <select id="product-category" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-african-pink">
+                            <option value="">Select Category</option>
+                            <option value="ointment">Ointments</option>
+                            <option value="facial">Facials</option>
+                            <option value="lotion">Lotions</option>
+                            <option value="hair">Hair Products</option>
+                            <option value="perfume">Perfumes</option>
+                            <option value="makeup">Makeup</option>
+                            <option value="skincare">Skincare</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="product-price" class="block text-gray-700 mb-1">Price (KSh)</label>
+                        <input type="number" id="product-price" min="0" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-african-pink">
+                    </div>
+                    
+                    <div>
+                        <label for="product-stock" class="block text-gray-700 mb-1">Available Stock</label>
+                        <input type="number" id="product-stock" min="0" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-african-pink">
+                    </div>
+                    
+                    <div>
+                        <label for="product-description" class="block text-gray-700 mb-1">Description</label>
+                        <textarea id="product-description" rows="3" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-african-pink"></textarea>
+                    </div>
+                    
+                    <div>
+                        <label for="product-image" class="block text-gray-700 mb-1">Product Image</label>
+                        <input type="file" id="product-image" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-african-pink">
+                        <p class="text-xs text-gray-500 mt-1">Upload an image of the product</p>
+                    </div>
+                    
+                    <div class="flex justify-end space-x-3 pt-4">
+                        <button type="button" onclick="closeAddProductModal()" class="px-4 py-2 border border-gray-300 rounded text-gray-700 hover:bg-gray-100 transition">Cancel</button>
+                        <button type="submit" class="px-4 py-2 bg-african-pink hover:bg-african-pink-dark text-white rounded transition">Add Product</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div id="success-toast" class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-20 transition-transform duration-300 z-50 hidden">
+        <div class="flex items-center">
+            <i class="fas fa-check-circle mr-2"></i>
+            <span id="toast-message">Product added successfully!</span>
+        </div>
+    </div>
+
+    <script>
+        // Initialize EmailJS with your Public Key
+        (function(){
+            emailjs.init("YOUR_EMAILJS_PUBLIC_KEY"); // Replace with your EmailJS Public Key
+        })();
+
+        // Product data (empty)
+        let products = [];
+
+        // Shopping cart
+        let cart = [];
+
+        // DOM elements
+        const productsContainer = document.getElementById('products-container');
+        const searchInput = document.getElementById('search-input');
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const cartOverlay = document.getElementById('cart-overlay');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        const cartCount = document.getElementById('cart-count');
+        const addProductModal = document.getElementById('add-product-modal');
+        const addProductForm = document.getElementById('add-product-form');
+        const successToast = document.getElementById('success-toast');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load products from localStorage or use empty array
+            const storedProducts = localStorage.getItem('products');
+            if (storedProducts) {
+                products = JSON.parse(storedProducts);
+            }
+            displayProducts(products);
+            
+            // Event listeners
+            searchInput.addEventListener('input', searchProducts);
+            addProductForm.addEventListener('submit', addNewProduct);
+            
+            document.getElementById('contact-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+
+                // Send email via EmailJS
+                emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+                    from_name: name,
+                    from_email: email,
+                    message: message,
+                    to_email: "Osbornemike2021@gmail.com"
+                })
+                .then(function(response) {
+                    showToast('Your message has been sent successfully!');
+                    document.getElementById('contact-form').reset();
+                }, function(error) {
+                    showToast('Failed to send message. Please try again.');
+                    console.error('EmailJS error:', error);
+                });
+            });
+        });
+
+        // Display products
+        function displayProducts(productsToDisplay) {
+            productsContainer.innerHTML = '';
+            
+            if (productsToDisplay.length === 0) {
+                productsContainer.innerHTML = '<p class="text-gray-500 text-center col-span-full py-12">No products found. Add a product to get started!</p>';
+                return;
+            }
+            
+            productsToDisplay.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300';
+                productCard.innerHTML = `
+                    <div class="relative pb-2/3 h-48">
+                        <img src="${product.image || 'images/placeholder.jpg'}" alt="${product.name}" class="absolute h-full w-full object-cover">
+                    </div>
+                    <div class="p-4">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-semibold text-gray-800">${product.name}</h3>
+                            <span class="bg-african-pink text-white text-xs px-2 py-1 rounded-full">${formatCategory(product.category)}</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-2">${product.description}</p>
+                        <p class="text-gray-600 text-sm mb-3">Stock: ${product.stock}</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-african-pink">KSh ${product.price.toLocaleString()}</span>
+                            ${product.stock > 0 ? `
+                                <button onclick="addToCart(${product.id})" class="bg-african-pink hover:bg-african-pink-dark text-white px-3 py-1 rounded text-sm transition">
+                                    <i class="fas fa-cart-plus mr-1"></i> Add
+                                </button>
+                            ` : `
+                                <span class="text-red-500 text-sm">Out of Stock</span>
+                            `}
+                        </div>
+                    </div>
+                `;
+                productsContainer.appendChild(productCard);
+            });
+        }
+
+        // Format category for display
+        function formatCategory(category) {
+            const categories = {
+                'ointment': 'Ointment',
+                'facial': 'Facial',
+                'lotion': 'Lotion',
+                'hair': 'Hair',
+                'perfume': 'Perfume',
+                'makeup': 'Makeup',
+                'skincare': 'Skincare'
+            };
+            return categories[category] || category;
+        }
+
+        // Filter products by category
+        function filterProducts(category) {
+            categoryButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase().includes(category) || (category === 'all' && btn.textContent === 'All')) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            if (category === 'all') {
+                displayProducts(products);
+                return;
+            }
+            
+            const filteredProducts = products.filter(product => product.category === category);
+            displayProducts(filteredProducts);
+        }
+
+        // Search products
+        function searchProducts() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const filteredProducts = products.filter(product => 
+                product.name.toLowerCase().includes(searchTerm) || 
+                product.description.toLowerCase().includes(searchTerm)
+            );
+            displayProducts(filteredProducts);
+        }
+
+        // Add to cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product || product.stock <= 0) {
+                showToast('Product is out of stock');
+                return;
+            }
+            
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                if (existingItem.quantity >= product.stock) {
+                    showToast('Cannot add more; stock limit reached');
+                    return;
+                }
+                existingItem.quantity += 1;
+                product.stock -= 1;
+            } else {
+                cart.push({...product, quantity: 1});
+                product.stock -= 1;
+            }
+            
+            localStorage.setItem('products', JSON.stringify(products));
+            updateCart();
+            displayProducts(products);
+            showToast(`${product.name} added to cart`);
+        }
+
+        // Update cart display
+        function updateCart() {
+            cartItemsContainer.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="text-gray-500 text-center py-8">Your cart is empty</p>';
+                cartTotal.textContent = 'KSh 0';
+                cartCount.textContent = '0';
+                return;
+            }
+            
+            let total = 0;
+            
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'flex items-center border-b border-gray-200 pb-4';
+                cartItem.innerHTML = `
+                    <div class="w-16 h-16 rounded overflow-hidden mr-4">
+                        <img src="${item.image || 'images/placeholder.jpg'}" alt="${item.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="font-medium text-gray-800">${item.name}</h4>
+                        <p class="text-sm text-gray-600">KSh ${item.price.toLocaleString()} x ${item.quantity}</p>
+                    </div>
+                    <div class="flex items-center">
+                        <button onclick="updateCartItem(${item.id}, -1)" class="text-gray-500 hover:text-african-pink px-2">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <span class="mx-2">${item.quantity}</span>
+                        <button onclick="updateCartItem(${item.id}, 1)" class="text-gray-500 hover:text-african-pink px-2">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-700 ml-4">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+            });
+            
+            cartTotal.textContent = `KSh ${total.toLocaleString()}`;
+            cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+        }
+
+        // Update cart item quantity
+        function updateCartItem(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (!item) return;
+            
+            const product = products.find(p => p.id === productId);
+            if (change > 0 && item.quantity >= product.stock) {
+                showToast('Cannot add more; stock limit reached');
+                return;
+            }
+            
+            item.quantity += change;
+            product.stock -= change;
+            
+            if (item.quantity <= 0) {
+                cart = cart.filter(item => item.id !== productId);
+            }
+            
+            localStorage.setItem('products', JSON.stringify(products));
+            updateCart();
+            displayProducts(products);
+        }
+
+        // Remove from cart
+        function removeFromCart(productId) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                const product = products.find(p => p.id === productId);
+                product.stock += item.quantity;
+                cart = cart.filter(item => item.id !== productId);
+                localStorage.setItem('products', JSON.stringify(products));
+                updateCart();
+                displayProducts(products);
+            }
+        }
+
+        // Toggle cart sidebar
+        function toggleCart() {
+            cartSidebar.classList.toggle('translate-x-full');
+            cartOverlay.classList.toggle('hidden');
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        // Add new product
+        function addNewProduct(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('product-name').value;
+            const category = document.getElementById('product-category').value;
+            const price = parseFloat(document.getElementById('product-price').value);
+            const stock = parseInt(document.getElementById('product-stock').value);
+            const description = document.getElementById('product-description').value;
+            const imageInput = document.getElementById('product-image');
+            
+            // Validation
+            if (!name || !category || isNaN(price) || isNaN(stock) || stock < 0 || !description) {
+                alert('Please fill in all fields with valid values');
+                return;
+            }
+            
+            // Generate a new ID
+            const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+            
+            // Default image
+            let imageUrl = '';
+            
+            if (imageInput.files && imageInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imageUrl = e.target.result;
+                    completeProductAddition(newId, name, category, price, stock, description, imageUrl);
+                };
+                reader.readAsDataURL(imageInput.files[0]);
+            } else {
+                completeProductAddition(newId, name, category, price, stock, description, imageUrl);
+            }
+        }
+
+        function completeProductAddition(id, name, category, price, stock, description, imageUrl) {
+            const newProduct = {
+                id,
+                name,
+                category,
+                price,
+                stock,
+                description,
+                image: imageUrl
+            };
+            
+            products.unshift(newProduct);
+            localStorage.setItem('products', JSON.stringify(products));
+            displayProducts(products);
+            closeAddProductModal();
+            showToast('Product added successfully!');
+            addProductForm.reset();
+        }
+
+        // Open add product modal
+        function openAddProductModal() {
+            addProductModal.classList.remove('pointer-events-none');
+            addProductModal.classList.add('opacity-100');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        // Close add product modal
+        function closeAddProductModal() {
+            addProductModal.classList.add('pointer-events-none');
+            addProductModal.classList.remove('opacity-100');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        // Show toast message
+        function showToast(message) {
+            document.getElementById('toast-message').textContent = message;
+            successToast.classList.remove('hidden');
+            successToast.classList.remove('translate-y-20');
+            successToast.classList.add('translate-y-0');
+            
+            setTimeout(() => {
+                successToast.classList.remove('translate-y-0');
+                successToast.classList.add('translate-y-20');
+                setTimeout(() => successToast.classList.add('hidden'), 300);
+            }, 3000);
+        }
+
+        // M-Pesa payment
+        async function initiateMpesaPayment() {
+            const phoneInput = prompt("Enter your M-Pesa phone number (e.g., 07XXXXXXXX):");
+            if (!phoneInput || !/^(07|01)\d{8}$/.test(phoneInput)) {
+                showToast("Please enter a valid Kenyan phone number");
+                return;
+            }
+            const phone = `254${phoneInput.slice(1)}`;
+            const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+            try {
+                const response = await fetch('http://your-backend-url/api/mpesa/stkpush', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phone, amount: total })
+                });
+                const result = await response.json();
+                if (result.success) {
+                    showToast("M-Pesa PIN prompt sent to your phone. Please complete the payment.");
+                    setTimeout(async () => {
+                        const statusResponse = await fetch(`http://your-backend-url/api/mpesa/status/${result.CheckoutRequestID}`);
+                        const status = await statusResponse.json();
+                        if (status.success) {
+                            showToast("Payment successful! Thank you for your purchase.");
+                            cart = [];
+                            updateCart();
+                            displayProducts(products);
+                        } else {
+                            // Restore stock if payment fails
+                            cart.forEach(item => {
+                                const product = products.find(p => p.id === item.id);
+                                if (product) product.stock += item.quantity;
+                            });
+                            localStorage.setItem('products', JSON.stringify(products));
+                            cart = [];
+                            updateCart();
+                            displayProducts(products);
+                            showToast("Payment failed or was cancelled.");
+                        }
+                    }, 30000);
+                } else {
+                    showToast("Failed to initiate M-Pesa payment.");
+                }
+            } catch (error) {
+                showToast("Error connecting to payment server.");
+                console.error(error);
+            }
+        }
+    </script>
+</body>
+</html>
